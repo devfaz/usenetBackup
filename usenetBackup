@@ -1,0 +1,20 @@
+#!/bin/bash
+export PATH="$PATH:$HOME/bin"
+set -o pipefail -e -x
+
+if [ -z "$NZB_DIR" ]; then
+  NZB_DIR="/mnt/data/usenetBackup/"
+fi
+
+ngPost \
+	--compress \
+	--tmp_dir /tmp/ \
+	--rar_path /usr/bin/7z \
+	--rar_size 100 \
+	--obfuscate \
+	--gen_from \
+	--gen_name \
+	--gen_pass \
+	--gen_par2 --par2_pct 5 \
+	--disp_progress FILES \
+	-i "$1" -o "/mnt/data/usenetBackup/$1_$( date +%s ).nzb"
